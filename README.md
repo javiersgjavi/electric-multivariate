@@ -1,4 +1,4 @@
-# Time Series Forecasting with Deep Learning
+# Multivariate Time Series Forecasting with Deep Learning
 [![TensorFlow 2.2](https://img.shields.io/badge/TensorFlow-2.2-FF6F00?logo=tensorflow)](https://github.com/tensorflow/tensorflow/releases/tag/v2.2.0)
 [![tfa-nightly 0.11](https://img.shields.io/badge/TensorFlow%20Addons-0.11.0.dev20200601015706-FF6F00?logo=tensorflow)](https://github.com/tensorflow/addons/releases)
 [![Python 3.8](https://img.shields.io/badge/Python-3.8-blue)](https://www.python.org/downloads/release/python-380/)
