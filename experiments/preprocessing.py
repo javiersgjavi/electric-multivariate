@@ -104,37 +104,41 @@ def normalize_dataset(train, test, normalization_method, dtype="float32"):
 def _moving_windows_preprocessing(args):
     # Format training and test input/output data using the moving window strategy
 
-    train, test, past_history, forecast_horizon, dtype, core = args
+    train, test, train_demand, test_demand, past_history, forecast_horizon, dtype, core = args
     x_train, y_train = [], []
     x_test, y_test = [], []
 
     for i, ts in tqdm(
-        list(enumerate(train)), desc="Moving window preprocesing train ({})".format(core)
+            list(enumerate(train)), desc="Moving window preprocesing train ({})".format(core)
     ):
 
         if len(ts) >= past_history + forecast_horizon:
             # Training data
             for j in range(past_history, ts.shape[0] - forecast_horizon + 1, 24):
                 indices = list(range(j - past_history, j))
-                # Reshape data from (past_history,) to (past_history, 1)
-                x_train.append(ts[indices].reshape((past_history, 1)))
-                y_train.append(ts[j : j + forecast_horizon])
 
-        # if len(ts) >= past_history:
-        #     # Test data
-        #     x_test.append(ts[-past_history:].reshape((past_history, 1)))
-        #     y_test.append(test[i])
+                # Reshape data from (past_history,) to (past_history, 1)
+                price = ts[indices]
+                demand = train_demand.flatten()[indices]
+                window = np.array([price, demand])
+
+                x_train.append(window)
+                y_train.append(ts[j: j + forecast_horizon])
+
     for i, ts in tqdm(
-        list(enumerate(test)), desc="Moving window preprocesing test ({})".format(core)
+            list(enumerate(test)), desc="Moving window preprocesing test ({})".format(core)
     ):
         if len(ts) >= past_history + forecast_horizon:
             # Testing data
             for j in range(past_history, ts.shape[0] - forecast_horizon + 1, 24):
                 indices = list(range(j - past_history, j))
-                # Reshape data from (past_history,) to (past_history, 1)
-                x_test.append(ts[indices].reshape((past_history, 1)))
-                y_test.append(ts[j : j + forecast_horizon])
 
+                price = ts[indices].reshape((past_history, 1))
+                demand = test_demand.flatten()[indices].reshape((past_history, 1))
+                window = np.array([price, demand])[:, :, 0]
+
+                x_test.append(window)
+                y_test.append(ts[j: j + forecast_horizon])
 
     return (
         np.array(x_train).astype(dtype),
@@ -145,7 +149,7 @@ def _moving_windows_preprocessing(args):
 
 
 def moving_windows_preprocessing(
-    train, test, past_history, forecast_horizon, dtype=np.float32, n_cores=1
+        train, test, train_demand, test_demand, past_history, forecast_horizon, dtype=np.float32, n_cores=1
 ):
     if len(train) < n_cores:
         n_cores = len(train)
@@ -157,13 +161,12 @@ def moving_windows_preprocessing(
         end = int(((i + 1) / n_cores) * train.shape[0])
         train_ls.append(train[start:end])
 
-
         start = int((i / n_cores) * test.shape[0])
         end = int(((i + 1) / n_cores) * test.shape[0])
         test_ls.append(test[start:end])
 
     params = [
-        (train_ls[i], test_ls[i], past_history, forecast_horizon, dtype, i)
+        (train_ls[i], test_ls[i], train_demand, test_demand, past_history, forecast_horizon, dtype, i)
         for i in range(len(train_ls))
     ]
 
