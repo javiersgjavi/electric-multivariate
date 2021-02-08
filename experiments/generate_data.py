@@ -58,16 +58,19 @@ def generate_dataset(args):
     train_url = DATASETS[dataset]["train"]
     test_url = DATASETS[dataset]["test"]
 
-    time_series = os.listdir('../data/{}/time_series/'.format(dataset))
+    time_series = os.listdir('../data/{}/data_time_series/'.format(dataset))
 
+    i = 0
     for ts in time_series:
-        train = read_ts_dataset("../data/{0}/time_series/{1}/train.csv".format(dataset, ts))
-        test = read_ts_dataset("../data/{0}/time_series/{1}/test.csv".format(dataset, ts))
+        if ts == 'price':
+            y = i
+        train = read_ts_dataset("../data/{0}/data_time_series/{1}/train.csv".format(dataset, ts))
+        test = read_ts_dataset("../data/{0}/data_time_series/{1}/test.csv".format(dataset, ts))
 
         forecast_horizon = 24  # test.shape[1]
 
         print(
-            dataset,
+            dataset + '_' + ts,
             {
                 "Max length": np.max([ts.shape[0] for ts in train]),
                 "Min length": np.min([ts.shape[0] for ts in train]),
@@ -87,16 +90,14 @@ def generate_dataset(args):
 
         with open("../data/{0}/{1}/norm_params_{2}.json".format(dataset, norm_method, ts), "w") as file:
             file.write(norm_params_demanda_json)
+        i +=1
 
         # Format training and test input/output data using the moving window strategy
-
-    train, train_demand = train_ts[0], train_ts[1]
-    test, test_demand = test_ts[0], test_ts[1]
 
     past_history = int(forecast_horizon * past_history_factor)
 
     x_train, y_train, x_test, y_test = moving_windows_preprocessing(
-        train, test, train_demand, test_demand, past_history, forecast_horizon, np.float32, n_cores=NUM_CORES
+        train_ts, test_ts, y, past_history, forecast_horizon, np.float32
     )
 
     y_test_denorm = np.copy(y_test)
