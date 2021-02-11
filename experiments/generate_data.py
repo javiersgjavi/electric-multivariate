@@ -49,59 +49,51 @@ DATASET_NAMES = [d for d in list(DATASETS.keys())]
 
 
 def generate_dataset(args):
-    train_ts = []
-    test_ts = []
-    norm_params_list = []
     dataset, norm_method, past_history_factor = args
 
     # Load data first time series
     train_url = DATASETS[dataset]["train"]
     test_url = DATASETS[dataset]["test"]
 
-    time_series = os.listdir('../data/{}/data_time_series/'.format(dataset))
+    train = read_ts_dataset("../data/{}/train.csv".format(dataset))
+    test = read_ts_dataset("../data/{}/test.csv".format(dataset))
 
-    i = 0
-    for ts in time_series:
-        if ts == 'price':
-            y = i
-        train = read_ts_dataset("../data/{0}/data_time_series/{1}/train.csv".format(dataset, ts))
-        test = read_ts_dataset("../data/{0}/data_time_series/{1}/test.csv".format(dataset, ts))
+    forecast_horizon = 24  # test.shape[1]
 
-        forecast_horizon = 24  # test.shape[1]
-
-        print(
-            dataset + '_' + ts,
-            {
-                "Max length": np.max([ts.shape[0] for ts in train]),
-                "Min length": np.min([ts.shape[0] for ts in train]),
-                "Forecast Horizon": forecast_horizon,
-            },
+    print(
+        dataset,
+        {
+            "Max length": np.max([ts.shape[0] for ts in train]),
+            "Min length": np.min([ts.shape[0] for ts in train]),
+            "Forecast Horizon": forecast_horizon,
+        },
         )
 
-        # Normalize data
-        train, test, norm_params = normalize_dataset(
-            train, test, norm_method, dtype="float32"
-        )
+    # Normalize data
+    train, test, norm_params = normalize_dataset(
+        train, test, norm_method, dtype="float32"
+    )
 
-        train_ts.append(train)
-        test_ts.append(test)
-        norm_params_demanda_json = [{k: float(p[k]) for k in p} for p in norm_params]
-        norm_params_demanda_json = json.dumps(norm_params_demanda_json)
+    norm_params_demanda_json = [{k: float(p[k]) for k in p} for p in norm_params]
+    norm_params_demanda_json = json.dumps(norm_params_demanda_json)
 
-        with open("../data/{0}/{1}/norm_params_{2}.json".format(dataset, norm_method, ts), "w") as file:
-            file.write(norm_params_demanda_json)
-        i +=1
+    if not os.path.exists('../data/{}/{}/'.format(dataset, norm_method)):
+        os.mkdir('../data/{}/{}/'.format(dataset, norm_method))
 
-        # Format training and test input/output data using the moving window strategy
+    with open("../data/{}/{}/norm_params.json".format(dataset, norm_method), "w") as file:
+        file.write(norm_params_demanda_json)
+
+
+    # Format training and test input/output data using the moving window strategy
 
     past_history = int(forecast_horizon * past_history_factor)
 
     x_train, y_train, x_test, y_test = moving_windows_preprocessing(
-        train_ts, test_ts, y, past_history, forecast_horizon, np.float32
+        train, test, past_history, forecast_horizon, np.float32, n_cores=1
     )
 
     y_test_denorm = np.copy(y_test)
-    # i = 0
+
     for i in range(y_test.shape[0]):
         y_test_denorm[i] = denormalize(y_test[i], norm_params[0], method=norm_method)
 
@@ -112,6 +104,9 @@ def generate_dataset(args):
     print("TEST DATA")
     print("Input shape", x_test.shape)
     print("Output_shape", y_test.shape)
+
+    if not os.path.exists('../data/{}/{}/{}/'.format(dataset, norm_method, past_history_factor)):
+        os.mkdir('../data/{}/{}/{}/'.format(dataset, norm_method, past_history_factor))
 
     np.save(
         "../data/{}/{}/{}/x_train.np".format(dataset, norm_method, past_history_factor),
@@ -154,7 +149,7 @@ for i, args in tqdm(enumerate(params)):
         )
     )
     print(
-        "[{}/{}] Generated dataset {} with {} normalization and past history factor of {} ({:.2f} s)".format(
+        "[{}/{}] Generated dataset {} with {} normalization and past history factor of {} ({:.2f} s)\n".format(
             i, len(params), dataset, norm_method, past_history_factor, time.time() - t0
         )
     )
