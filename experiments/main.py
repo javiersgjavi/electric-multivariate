@@ -11,6 +11,7 @@ from metrics import METRICS, evaluate
 from preprocessing import denormalize
 from obtain_best_results import obtain_best_results
 from obtain_metrics_predictions import get_metrics
+from main_ml import main_ml
 
 def notify_slack(msg, webhook=None):
     if webhook is None:
@@ -104,12 +105,7 @@ def read_data(dataset_path, normalization_method, past_history_factor):
     x_test = np.load(tmp_data_path + "x_test.np.npy")
     y_test = np.load(tmp_data_path + "y_test.np.npy")
     y_test_denorm = np.load(tmp_data_path + "y_test_denorm.np.npy")
-    # y_test_denorm = np.asarray(
-    #     [
-    #         denormalize(y_test[i], norm_params[i], normalization_method)
-    #         for i in range(y_test.shape[0])
-    #     ]
-    # )
+
     print("TRAINING DATA")
     print("Input shape", x_train.shape)
     print("Output_shape", y_train.shape)
@@ -251,6 +247,9 @@ def _run_experiment(
         csv_filepath, sep=";",
     )
 
+    print('END OF EXPERIMENT -> ./results/{}/{}/{}/{}/{}/{}/{}/{}'.format(dataset, normalization_method,
+                                                                           past_history_factor, epochs, learning_rate,
+                                                                           batch_size, model_name, model_index))
     gc.collect()
     del model, x_train, x_test, y_train, y_test, y_test_denorm, test_forecast
 
@@ -422,6 +421,13 @@ if __name__ == "__main__":
         help="Models to experiment over (separated by comma)",
     )
     parser.add_argument(
+        "-m",
+        "--models_ml",
+        nargs="*",
+        default=[],
+        help="ML Models to experiment over (separated by comma)",
+    )
+    parser.add_argument(
         "-p", "--parameters", help="Parameters file path",
     )
     parser.add_argument(
@@ -441,5 +447,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     main(args)
+    main_ml(args.models_ml, args.datasets, args.metrics, args.output)
     obtain_best_results()
     get_metrics()
