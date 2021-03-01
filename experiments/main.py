@@ -204,7 +204,7 @@ def _run_experiment(
         test_metrics = {}
 
     # Save results
-    predictions_path = "{}/{}/{}/{}/{}/{}/{}/{}/".format(
+    predictions_path = "{}/{}/{}/{}/DL/{}/{}/{}/{}/".format(
         results_path,
         dataset,
         normalization_method,
@@ -421,7 +421,7 @@ if __name__ == "__main__":
         help="Models to experiment over (separated by comma)",
     )
     parser.add_argument(
-        "-m",
+        "-ml",
         "--models_ml",
         nargs="*",
         default=[],
@@ -448,5 +448,5 @@ if __name__ == "__main__":
 
     main(args)
     main_ml(args.models_ml, args.datasets, args.metrics, args.output)
-    obtain_best_results()
+    # obtain_best_results()
     get_metrics()

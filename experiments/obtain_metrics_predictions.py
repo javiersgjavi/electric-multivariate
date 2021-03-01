@@ -22,12 +22,12 @@ def get_best_prediction(results, metric, model, dataset):
 
         if model in DL_MODELS:
 
-            path_preds = '../results/{}/{}/{}/{}/{}/{}/{}/{}.npy'.format(
+            path_preds = '../results/{}/{}/{}/DL/{}/{}/{}/{}/{}.npy'.format(
                 dataset,
                 np.str(row['NORMALIZATION']),
                 np.str(row['PAST_HISTORY_FACTOR']),
-                np.str(row['EPOCHS']),
-                np.str(row['BATCH_SIZE']),
+                np.str(int(row['EPOCHS'])),
+                np.str(int(row['BATCH_SIZE'])),
                 np.str(row['LEARNING_RATE']),
                 model,
                 np.str(row['MODEL_INDEX'])

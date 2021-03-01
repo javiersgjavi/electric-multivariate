@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 
 from metrics import evaluate
-from experiments.preprocessing import denormalize
+from preprocessing import denormalize
 from models import create_model_ml
 
 
@@ -109,7 +109,6 @@ def main_ml(models_ml, datasets, metrics, results_path):
                     parameters['past_history_factor']
             ):
                 csv_filepath = '{}/{}/results.csv'.format(results_path, dataset)
-                print(csv_filepath)
                 results = read_results_file(csv_filepath, metrics)
 
                 x_train, y_train, x_test, y_test, y_test_denorm, norm_params = read_data(dataset, normalization_method,
