@@ -2,7 +2,7 @@
     "normalization_method": ["minmax", "zscore"],
     "past_history_factor": [2.0, 3.0, 4.0],
     "batch_size": [32, 64],
-    "epochs": [5, 10],
+    "epochs": [5, 10, 15, 20],
     "max_steps_per_epoch": [10000],
     "learning_rate": [0.001, 0.01],
     "model_params": {
