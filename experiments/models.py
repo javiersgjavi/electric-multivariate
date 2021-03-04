@@ -1,15 +1,17 @@
 import tensorflow as tf
 from tensorflow_addons.layers import ESN
 from tcn import TCN
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.ensemble import RandomForestRegressor
 
 
 def mlp(
-    input_shape,
-    output_size=1,
-    optimizer="adam",
-    loss="mae",
-    hidden_layers=[32, 16, 8],
-    dropout=0.0,
+        input_shape,
+        output_size=1,
+        optimizer="adam",
+        loss="mae",
+        hidden_layers=[32, 16, 8],
+        dropout=0.0,
 ):
     inputs = tf.keras.layers.Input(shape=input_shape[-2:])
     x = tf.keras.layers.Flatten()(inputs)  # Convert the 2d input in a 1d array
@@ -25,15 +27,15 @@ def mlp(
 
 
 def ernn(
-    input_shape,
-    output_size=1,
-    optimizer="adam",
-    loss="mae",
-    recurrent_units=[50],
-    recurrent_dropout=0,
-    return_sequences=False,
-    dense_layers=[],
-    dense_dropout=0,
+        input_shape,
+        output_size=1,
+        optimizer="adam",
+        loss="mae",
+        recurrent_units=[50],
+        recurrent_dropout=0,
+        return_sequences=False,
+        dense_layers=[],
+        dense_dropout=0,
 ):
     inputs = tf.keras.layers.Input(shape=input_shape[-2:])
     # LSTM layers
@@ -66,14 +68,14 @@ def ernn(
 
 
 def esn(
-    input_shape,
-    output_size=1,
-    optimizer="adam",
-    loss="mae",
-    recurrent_units=[50],
-    return_sequences=False,
-    dense_layers=[32],
-    dense_dropout=0,
+        input_shape,
+        output_size=1,
+        optimizer="adam",
+        loss="mae",
+        recurrent_units=[50],
+        return_sequences=False,
+        dense_layers=[32],
+        dense_dropout=0,
 ):
     inputs = tf.keras.layers.Input(shape=input_shape[-2:])
     # LSTM layers
@@ -102,15 +104,15 @@ def esn(
 
 
 def lstm(
-    input_shape,
-    output_size=1,
-    optimizer="adam",
-    loss="mae",
-    recurrent_units=[50],
-    recurrent_dropout=0,
-    return_sequences=False,
-    dense_layers=[],
-    dense_dropout=0,
+        input_shape,
+        output_size=1,
+        optimizer="adam",
+        loss="mae",
+        recurrent_units=[50],
+        recurrent_dropout=0,
+        return_sequences=False,
+        dense_layers=[],
+        dense_dropout=0,
 ):
     inputs = tf.keras.layers.Input(shape=input_shape[-2:])
     # LSTM layers
@@ -143,15 +145,15 @@ def lstm(
 
 
 def gru(
-    input_shape,
-    output_size=1,
-    optimizer="adam",
-    loss="mae",
-    recurrent_units=[50],
-    recurrent_dropout=0,
-    return_sequences=False,
-    dense_layers=[],
-    dense_dropout=0,
+        input_shape,
+        output_size=1,
+        optimizer="adam",
+        loss="mae",
+        recurrent_units=[50],
+        recurrent_dropout=0,
+        return_sequences=False,
+        dense_layers=[],
+        dense_dropout=0,
 ):
     inputs = tf.keras.layers.Input(shape=input_shape[-2:])
     # LSTM layers
@@ -184,15 +186,15 @@ def gru(
 
 
 def cnn(
-    input_shape,
-    output_size=1,
-    optimizer="adam",
-    loss="mae",
-    conv_layers=[64, 128],
-    kernel_sizes=[7, 5],
-    pool_sizes=[2, 2],
-    dense_layers=[],
-    dense_dropout=0.0,
+        input_shape,
+        output_size=1,
+        optimizer="adam",
+        loss="mae",
+        conv_layers=[64, 128],
+        kernel_sizes=[7, 5],
+        pool_sizes=[2, 2],
+        dense_layers=[],
+        dense_dropout=0.0,
 ):
     assert len(conv_layers) == len(kernel_sizes)
     assert 0 <= dense_dropout <= 1
@@ -205,7 +207,7 @@ def cnn(
         x = tf.keras.layers.MaxPool1D(pool_size=pool_sizes[0])(x)
     # Rest of the conv blocks
     for chanels, kernel_size, pool_size in zip(
-        conv_layers[1:], kernel_sizes[1:], pool_sizes[1:]
+            conv_layers[1:], kernel_sizes[1:], pool_sizes[1:]
     ):
         x = tf.keras.layers.Conv1D(
             chanels, kernel_size, activation="relu", padding="same"
@@ -226,22 +228,22 @@ def cnn(
 
 
 def tcn(
-    input_shape,
-    output_size=1,
-    optimizer="adam",
-    loss="mae",
-    nb_filters=64,
-    kernel_size=2,
-    nb_stacks=1,
-    dilations=[1, 2, 4, 8, 16],
-    tcn_dropout=0.0,
-    return_sequences=True,
-    activation="linear",
-    padding="causal",
-    use_skip_connections=True,
-    use_batch_norm=False,
-    dense_layers=[],
-    dense_dropout=0.0,
+        input_shape,
+        output_size=1,
+        optimizer="adam",
+        loss="mae",
+        nb_filters=64,
+        kernel_size=2,
+        nb_stacks=1,
+        dilations=[1, 2, 4, 8, 16],
+        tcn_dropout=0.0,
+        return_sequences=True,
+        activation="linear",
+        padding="causal",
+        use_skip_connections=True,
+        use_batch_norm=False,
+        dense_layers=[],
+        dense_dropout=0.0,
 ):
     inputs = tf.keras.layers.Input(shape=input_shape[-2:])
 
@@ -268,6 +270,24 @@ def tcn(
     model = tf.keras.Model(inputs=inputs, outputs=x)
     model.compile(optimizer=optimizer, loss=loss)
 
+    return model
+
+
+def tree(params):
+    splitter_value, max_depth_value, min_samples_split_value, min_samples_leaf_value = params
+
+    model = DecisionTreeRegressor(criterion='mse', splitter=splitter_value, max_depth=max_depth_value,
+                                  min_samples_split=min_samples_split_value, min_samples_leaf=min_samples_leaf_value)
+    return model
+
+
+def rf(params):
+
+    n_stimators_value, max_depth_value, min_samples_split_value, min_samples_leaf_value = params
+
+    model = RandomForestRegressor(criterion='mse', n_jobs=-1, n_estimators=n_stimators_value,
+                                  max_depth=max_depth_value, min_samples_split=min_samples_split_value,
+                                  min_samples_leaf=min_samples_leaf_value)
     return model
 
 
@@ -307,9 +327,21 @@ model_factory = {
     "tcn": tcn,
 }
 
+model_factory_ML = {
+    "tree": tree,
+    "rf": rf
+}
+
 
 def create_model(model_name, input_shape, **args):
     assert model_name in model_factory.keys(), "Model '{}' not supported".format(
         model_name
     )
     return model_factory[model_name](input_shape, **args)
+
+
+def create_model_ml(model_name, params):
+    assert model_name in model_factory_ML.keys(), "Model '{}' not supported".format(
+        model_name
+    )
+    return model_factory_ML[model_name](params)

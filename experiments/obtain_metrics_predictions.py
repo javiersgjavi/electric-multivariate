@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 from metrics import METRICS
 
-
+DL_MODELS = ['lstm', 'cnn', 'tcn', 'mlp']
 def get_models(datasets):
     """It obtains the models used into the experiments"""
     dataframe = pd.read_csv('../results/' + datasets[0] + '/results.csv', sep=';')
@@ -20,9 +20,26 @@ def get_best_prediction(results, metric, model, dataset):
         path_y_test_denorm = '../data/' + dataset + '/' + np.str(row['NORMALIZATION']) + '/' + \
                              np.str(row['PAST_HISTORY_FACTOR']) + '/'
 
-        path_preds = '../results/' + dataset + '/' + np.str(row['NORMALIZATION']) + '/' + np.str(
-            row['PAST_HISTORY_FACTOR']) + '/' + np.str(row['EPOCHS']) + '/' + np.str(row['BATCH_SIZE']) + '/' + np.str(
-            row['LEARNING_RATE']) + '/' + model + '/' + np.str(row['MODEL_INDEX']) + '.npy'
+        if model in DL_MODELS:
+
+            path_preds = '../results/{}/{}/{}/DL/{}/{}/{}/{}/{}.npy'.format(
+                dataset,
+                np.str(row['NORMALIZATION']),
+                np.str(row['PAST_HISTORY_FACTOR']),
+                np.str(int(row['EPOCHS'])),
+                np.str(int(row['BATCH_SIZE'])),
+                np.str(row['LEARNING_RATE']),
+                model,
+                np.str(row['MODEL_INDEX'])
+            )
+        else:
+            path_preds = '../results/{}/{}/{}/ML/{}/{}.npy'.format(
+                dataset,
+                np.str(row['NORMALIZATION']),
+                np.str(row['PAST_HISTORY_FACTOR']),
+                model,
+                np.str(row['MODEL_INDEX'])
+            )
 
         y_test_denorm = np.load(path_y_test_denorm + 'y_test_denorm.np.npy').flatten()
         preds = np.load(path_preds).flatten()
