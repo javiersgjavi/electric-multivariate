@@ -1,10 +1,11 @@
 {
     "normalization_method": ["minmax", "zscore"],
     "past_history_factor": [2.0, 3.0, 4.0],
-    "batch_size": [32, 64],
-    "epochs": [5, 10, 15, 20],
+    "batch_size": [16, 32, 64, 128],
+    "epochs": [5, 10, 15, 20, 25],
     "max_steps_per_epoch": [10000],
     "learning_rate": [0.001, 0.01],
+    "optimizer": ["Adam", "Nadam"],
     "model_params": {
         "mlp": {
             "hidden_layers": [
@@ -28,8 +29,8 @@
             "return_sequence": [true, false]
         },
         "lstm": {
-            "layers": [1, 2, 4],
-            "units": [32, 64, 128],
+            "layers": [1, 2, 4, 6],
+            "units": [32, 64, 128, 256],
             "return_sequence": [true, false]
         },
         "gru": {

@@ -13,6 +13,7 @@ from obtain_best_results import obtain_best_results
 from obtain_metrics_predictions import get_metrics
 from main_ml import main_ml
 from keras.callbacks import EarlyStopping
+from keras.optimizers import Adam, Nadam
 
 def notify_slack(msg, webhook=None):
     if webhook is None:
@@ -127,6 +128,7 @@ def _run_experiment(
         epochs,
         normalization_method,
         past_history_factor,
+        optimizer,
         max_steps_per_epoch,
         batch_size,
         learning_rate,
@@ -166,19 +168,23 @@ def _run_experiment(
         int(np.ceil(x_train.shape[0] / batch_size)), max_steps_per_epoch,
     )
 
-    optimizer = tf.optimizers.Adam(learning_rate=learning_rate)
+    optimizers = {
+        'Adam': Adam(learning_rate=learning_rate),
+        'Nadam': Nadam(learning_rate=learning_rate),
+    }
+
     model = create_model(
         model_name,
         x_train.shape,
         output_size=forecast_horizon,
-        optimizer=optimizer,
+        optimizer=optimizers[optimizer],
         loss="mae",
         **model_args
     )
     print(model.summary())
 
     # Callbacks
-    early_stopping = EarlyStopping(monitor='val_loss', patiente=5, verbose=1, mode='min')
+    early_stopping = EarlyStopping(monitor='val_loss', patience=5, verbose=1, mode='min')
 
     training_time_0 = time.time()
     history = model.fit(
@@ -236,7 +242,7 @@ def _run_experiment(
             "BATCH_SIZE": batch_size,
             "EPOCHS": epochs,
             "STEPS": steps_per_epoch,
-            "OPTIMIZER": "Adam",
+            "OPTIMIZER": optimizer,
             "LEARNING_RATE": learning_rate,
             "NORMALIZATION": normalization_method,
             "TEST_TIME": test_time,
@@ -270,6 +276,7 @@ def run_experiment(
         epochs,
         normalization_method,
         past_history_factor,
+        optimizer,
         max_steps_per_epoch,
         batch_size,
         learning_rate,
@@ -288,6 +295,7 @@ def run_experiment(
             epochs,
             normalization_method,
             past_history_factor,
+            optimizer,
             max_steps_per_epoch,
             batch_size,
             learning_rate,
@@ -351,10 +359,11 @@ def main(args):
             ]
         )
 
-        for epochs, normalization_method, past_history_factor in itertools.product(
+        for epochs, normalization_method, past_history_factor, optimizer in itertools.product(
                 parameters["epochs"],
                 parameters["normalization_method"],
                 parameters["past_history_factor"],
+                parameters["optimizer"]
         ):
             for batch_size, learning_rate in itertools.product(
                     parameters["batch_size"], parameters["learning_rate"],
@@ -384,6 +393,7 @@ def main(args):
                                 epochs,
                                 normalization_method,
                                 past_history_factor,
+                                optimizer,
                                 parameters["max_steps_per_epoch"][0],
                                 batch_size,
                                 learning_rate,

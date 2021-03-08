@@ -139,6 +139,7 @@ def lstm(
     x = tf.keras.layers.Dense(output_size)(x)
 
     model = tf.keras.Model(inputs=inputs, outputs=x)
+
     model.compile(optimizer=optimizer, loss=loss)
 
     return model
@@ -282,7 +283,6 @@ def tree(params):
 
 
 def rf(params):
-
     n_stimators_value, max_depth_value, min_samples_split_value, min_samples_leaf_value = params
 
     model = RandomForestRegressor(criterion='mse', n_jobs=-1, n_estimators=n_stimators_value,
