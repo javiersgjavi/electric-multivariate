@@ -12,8 +12,8 @@ from preprocessing import denormalize
 from obtain_best_results import obtain_best_results
 from obtain_metrics_predictions import get_metrics
 from main_ml import main_ml
-from keras.callbacks import EarlyStopping
-from keras.optimizers import Adam, Nadam
+from tensorflow.keras.callbacks import EarlyStopping
+from tensorflow.keras.optimizers import Adam, Nadam
 
 def notify_slack(msg, webhook=None):
     if webhook is None:
