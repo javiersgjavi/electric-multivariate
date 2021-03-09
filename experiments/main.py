@@ -215,7 +215,7 @@ def _run_experiment(
         test_metrics = {}
 
     # Save results
-    predictions_path = "{}/{}/{}/{}/DL/{}/{}/{}/{}/".format(
+    predictions_path = "{}/{}/{}/{}/DL/{}/{}/{}/{}/{}/".format(
         results_path,
         dataset,
         normalization_method,
@@ -223,6 +223,7 @@ def _run_experiment(
         epochs,
         batch_size,
         learning_rate,
+        optimizer,
         model_name,
     )
     if not os.path.exists(predictions_path):
@@ -258,9 +259,9 @@ def _run_experiment(
         csv_filepath, sep=";",
     )
 
-    print('END OF EXPERIMENT -> ./results/{}/{}/{}/{}/{}/{}/{}/{}'.format(dataset, normalization_method,
+    print('END OF EXPERIMENT -> ./results/{}/{}/{}/{}/{}/{}/{}/{}/{}'.format(dataset, normalization_method,
                                                                            past_history_factor, epochs, learning_rate,
-                                                                           batch_size, model_name, model_index))
+                                                                           batch_size, optimizer, model_name, model_index))
     gc.collect()
     del model, x_train, x_test, y_train, y_test, y_test_denorm, test_forecast
 
