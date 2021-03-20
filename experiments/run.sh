@@ -1,8 +1,8 @@
 GPU=0
 LOG_FILE=./experiments${GPU}.out
-DATASETS=('../data/cuarentena')
-MODELS=('lstm' 'cnn' 'tcn' 'mlp')
-MODELS_ML=('tree' 'rf')
+DATASETS=('../data/_*')
+MODELS=('lstm')
+MODELS_ML=()
 PARAMETERS=./parameters.json
 OUTPUT=../results
 CSV_FILENAME=results.csv

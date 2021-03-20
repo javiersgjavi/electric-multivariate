@@ -22,13 +22,14 @@ def get_best_prediction(results, metric, model, dataset):
 
         if model in DL_MODELS:
 
-            path_preds = '../results/{}/{}/{}/DL/{}/{}/{}/{}/{}.npy'.format(
+            path_preds = '../results/{}/{}/{}/DL/{}/{}/{}/{}/{}/{}.npy'.format(
                 dataset,
                 np.str(row['NORMALIZATION']),
                 np.str(row['PAST_HISTORY_FACTOR']),
                 np.str(int(row['EPOCHS'])),
                 np.str(int(row['BATCH_SIZE'])),
                 np.str(row['LEARNING_RATE']),
+                np.str(row['OPTIMIZER']),
                 model,
                 np.str(row['MODEL_INDEX'])
             )
@@ -48,7 +49,7 @@ def get_best_prediction(results, metric, model, dataset):
 
         if value < best_value:
             best_value = value
-            best_model = row['MODEL_DESCRIPTION']
+            best_model = row['NORMALIZATION'] + np.str(row['PAST_HISTORY_FACTOR']) + np.str(row['BATCH_SIZE']) + row['OPTIMIZER'] + np.str(row['LEARNING_RATE']) + row['MODEL_DESCRIPTION']
 
     return best_value, best_model
 

@@ -1,8 +1,8 @@
 {
     "normalization_method": ["minmax", "zscore"],
     "past_history_factor": [2.0, 3.0, 4.0],
-    "batch_size": [16, 32, 64, 128],
-    "epochs": [5, 10, 15, 20, 25],
+    "batch_size": [16, 32],
+    "epochs": [100],
     "max_steps_per_epoch": [10000],
     "learning_rate": [0.001, 0.01],
     "optimizer": ["Adam", "Nadam"],
@@ -30,10 +30,10 @@
         },
         "lstm": {
             "layers": [1, 2, 4, 6],
-            "units": [32, 64, 128, 256],
+            "units": [32, 64, 128],
             "return_sequence": [true, false],
-            "recurrent_dropout": [0, 0.2, 0.4, 0.6],
-            "dense_dropout": [0, 0.2, 0.4, 0.6],
+            "recurrent_dropout": [0, 0.2, 0.4],
+            "dense_dropout": [0, 0.2, 0.4],
             "dense_layers": [
                 [],
                 [8],
@@ -48,7 +48,6 @@
                 [32, 64, 128],
                 [128, 64, 32],
                 [32, 64, 128, 64, 32]
-
             ]
         },
         "gru": {
