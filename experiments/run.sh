@@ -1,7 +1,7 @@
 GPU=0
 LOG_FILE=./experiments${GPU}.out
-DATASETS=('../data/cuarentena')
-MODELS=('lstm' 'cnn' 'tcn' 'mlp')
+DATASETS=('../data/_*')
+MODELS=('lstm' 'cnn' 'tcn' 'mlp' 'gru')
 MODELS_ML=('tree' 'rf')
 PARAMETERS=./parameters.json
 OUTPUT=../results

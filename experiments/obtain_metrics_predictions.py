@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 from metrics import METRICS
 
-DL_MODELS = ['lstm', 'cnn', 'tcn', 'mlp']
+DL_MODELS = ['lstm', 'cnn', 'tcn', 'mlp', 'gru']
 def get_models(datasets):
     """It obtains the models used into the experiments"""
     dataframe = pd.read_csv('../results/' + datasets[0] + '/results.csv', sep=';')
