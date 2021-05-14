@@ -7,6 +7,12 @@ An Extensive Comparative between Univariateand Multivariate Deep Learning Models
 
 > Electricity  is  a  product  that  has  greatly  changed  the  waywe think about the world, in fact it is one of the indicators that showthe  progress  of  a  civilisation.  With  the  deregulation  of  the  electricitymarket in the 1990s, electricity pricing became a fundamental task in allcountries. This task was a challenge for both producers and consumers,as many factors had to be taken into account. In this paper, given thelarge  number  of  factors  that  influence  the  electricity  market  price,  amethodology is proposed that makes use of exogenous variables to predictthe electricity market price. Tests have been carried out with differenttime periods for data from Spain and different Deep Learning models,showing that the use of these variables is an improvement with respectto the univariate model, in which only the price was used.
 
+## Authors:
+- Belén Vega-Márquez
+- Javier Solís García
+- Isabel A. Nepomuceno Chamorro
+- Cristina Rubio Escudero
+
 ## License<a name="license"></a>
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
