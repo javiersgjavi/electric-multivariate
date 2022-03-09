@@ -27,7 +27,9 @@ An Extensive Comparative between Univariateand Multivariate Deep Learning Models
 
 6. Move to experiments folder: ```cd electric-multivariate/experiments/```
 
-7. Execute: ```nohup ./run.sh```
+7. Give execution permissions to run.sh: ```chmod +x run.sh```
+
+8. Execute: ```nohup ./run.sh```
 
 
 ## License<a name="license"></a>
