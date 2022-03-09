@@ -13,6 +13,21 @@ An Extensive Comparative between Univariateand Multivariate Deep Learning Models
 - Isabel A. Nepomuceno Chamorro
 - Cristina Rubio Escudero
 
+## Execution
+
+1. Modify path file in docker-compose.yaml
+
+2. Build Docker image: ```docker build . -t electric```
+
+3. Start Docker container: ```docker-compose up -d```
+
+4. Enter Docker container: ```docker exec -it <container_id> bash
+
+5. Move to experiments folder: ```cd electric-multivariate/experiments/```
+
+6 Execute: ```nohup ./run.sh```
+
+
 ## License<a name="license"></a>
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
