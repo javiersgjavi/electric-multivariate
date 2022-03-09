@@ -21,7 +21,7 @@ An Extensive Comparative between Univariateand Multivariate Deep Learning Models
 
 3. Start Docker container: ```docker-compose up -d```
 
-4. Enter Docker container: ```docker exec -it <container_id> bash
+4. Enter Docker container: ```docker exec -it <container_id> bash```
 
 5. Move to experiments folder: ```cd electric-multivariate/experiments/```
 
