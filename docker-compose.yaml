@@ -5,14 +5,11 @@ services:
  electric_deeper:
   image: electric
   volumes:
-   - ~/electric_job/iglp_paper/deeper/:/app/
-  stdin_open: true # docker run -i
-  tty: true        # docker run -t
-  #command: nvidia-smi
+   - ~/{path_to_folder}/:/app/
+  stdin_open: true
+  tty: true
   deploy:
    resources:
     reservations:
      devices:
-      #- driver: nvidia
-      #count: 1
       - capabilities: [gpu]
