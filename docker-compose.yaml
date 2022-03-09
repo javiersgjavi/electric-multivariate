@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
 
- electric_deeper:
+ electric_{name_service}:
   image: electric
   volumes:
    - ~/{path_to_folder}/:/app/
