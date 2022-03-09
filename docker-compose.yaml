@@ -1,0 +1,18 @@
+version: "3.7"
+
+services:
+
+ electric_deeper:
+  image: electric
+  volumes:
+   - ~/electric_job/iglp_paper/deeper/:/app/
+  stdin_open: true # docker run -i
+  tty: true        # docker run -t
+  #command: nvidia-smi
+  deploy:
+   resources:
+    reservations:
+     devices:
+      #- driver: nvidia
+      #count: 1
+      - capabilities: [gpu]

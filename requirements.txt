@@ -1,0 +1,9 @@
+pandas
+matplotlib
+tqdm
+more-itertools
+numpy
+openpyxl
+tensorflow_addons
+keras-tcn
+scikit-learn
