@@ -1,3 +1,4 @@
+#!/bin/bash
 GPU=0
 LOG_FILE=./experiments${GPU}.out
 DATASETS=('../data/_*')
