@@ -15,7 +15,7 @@ An Extensive Comparative between Univariateand Multivariate Deep Learning Models
 
 ## Execution
 
-1. Modify path file in docker-compose.yaml
+1. Modify required parameters in docker-compose.yaml
 
 2. Build Docker image: ```docker build . -t electric```
 
