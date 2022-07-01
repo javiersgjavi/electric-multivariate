@@ -24,8 +24,8 @@ python generate_data.py
 
 cd ..
 
-mv data/quarantine data/_quarantine/
-mv data/fraud data/_fraud/
-mv data/normal data/_normal/
+mv -T data/quarantine/ data/_quarantine/
+mv -T data/fraud/ data/_fraud/
+mv -T data/normal/ data/_normal/
 
 
