@@ -13,7 +13,7 @@
 
 ## Abstract
 
-An Extensive Comparative between Univariate and Multivariate Deep Learning Models in Day-Ahead Electricity Price Forecasting
+[An Extensive Comparative between Univariate and Multivariate Deep Learning Models in Day-Ahead Electricity Price Forecasting](https://doi.org/10.1007/978-3-030-87869-6_64)
 
 > Electricity is a product that has greatly changed the way we think about the world. In fact, it is one of the indicators that show the progress of a civilisation. With the deregulation of the electricity market in the 1990s, electricity price forecasting became a fundamental task in all countries. This task was a challenge for both producers and consumers, as many factors had to be taken into account. In this paper, given the large number of factors that influence the electricity market price we have conducted several experiments to see how the use of multiple variables can improve the effectiveness of price prediction. Tests have been performed with different time periods using data from Spain and different Deep Learning models, showing that the use of these variables represents an improvement with respect to the univariate model, in which only the price was considered.
 
