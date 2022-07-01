@@ -1,9 +1,9 @@
 {
-    "cuarentena": {
+    "quarantine": {
         "train": "https://www.dropbox.com/s/t857z4a1ofuucde/train.csv?dl=1",
         "test": "https://www.dropbox.com/s/xjj1955hyuad9so/test.csv?dl=1"
     },
-    "fraude": {
+    "fraud": {
         "train": "https://www.dropbox.com/s/np4hg8v7bykacco/train.csv?dl=1",
         "test": "https://www.dropbox.com/s/ekj675082j8od7j/test.csv?dl=1"
     },
