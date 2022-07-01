@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/336055958.svg)](https://zenodo.org/badge/latestdoi/336055958)
+
 # Multivariate Time Series Forecasting with Deep Learning
 
 
