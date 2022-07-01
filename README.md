@@ -1,19 +1,31 @@
 # Multivariate Time Series Forecasting with Deep Learning
-[![TensorFlow 2.2](https://img.shields.io/badge/TensorFlow-2.2-FF6F00?logo=tensorflow)](https://github.com/tensorflow/tensorflow/releases/tag/v2.2.0)
-[![tfa-nightly 0.11](https://img.shields.io/badge/TensorFlow%20Addons-0.11.0.dev20200601015706-FF6F00?logo=tensorflow)](https://github.com/tensorflow/addons/releases)
-[![Python 3.8](https://img.shields.io/badge/Python-3.8-blue)](https://www.python.org/downloads/release/python-380/)
 
-An Extensive Comparative between Univariateand Multivariate Deep Learning Models inDay-Ahead Electricity Price Forecasting
 
-> Electricity  is  a  product  that  has  greatly  changed  the  waywe think about the world, in fact it is one of the indicators that showthe  progress  of  a  civilisation.  With  the  deregulation  of  the  electricitymarket in the 1990s, electricity pricing became a fundamental task in allcountries. This task was a challenge for both producers and consumers,as many factors had to be taken into account. In this paper, given thelarge  number  of  factors  that  influence  the  electricity  market  price,  amethodology is proposed that makes use of exogenous variables to predictthe electricity market price. Tests have been carried out with differenttime periods for data from Spain and different Deep Learning models,showing that the use of these variables is an improvement with respectto the univariate model, in which only the price was used.
+# Table of Contents
+1. [Abstract](#Abstract) 
+2. [Authors](#Authors) 
+3. [How to execute the code](#Execution) 
+4. [License](#license) 
+
+<a name="Abstract"/>
+
+## Abstract
+
+An Extensive Comparative between Univariate and Multivariate Deep Learning Models in Day-Ahead Electricity Price Forecasting
+
+> Electricity is a product that has greatly changed the way we think about the world. In fact, it is one of the indicators that show the progress of a civilisation. With the deregulation of the electricity market in the 1990s, electricity price forecasting became a fundamental task in all countries. This task was a challenge for both producers and consumers, as many factors had to be taken into account. In this paper, given the large number of factors that influence the electricity market price we have conducted several experiments to see how the use of multiple variables can improve the effectiveness of price prediction. Tests have been performed with different time periods using data from Spain and different Deep Learning models, showing that the use of these variables represents an improvement with respect to the univariate model, in which only the price was considered.
+
+<a name="Authors"/>
 
 ## Authors:
 - Belén Vega-Márquez
-- Javier Solís García
+- Javier Solís-García
 - Isabel A. Nepomuceno Chamorro
-- Cristina Rubio Escudero
+- Cristina Rubio-Escudero
 
-## Execution
+<a name="Execution"/>
+
+## How to execute the code
 
 1. Modify required parameters in docker-compose.yaml
 
@@ -25,11 +37,21 @@ An Extensive Comparative between Univariateand Multivariate Deep Learning Models
 
 5. Enter Docker container: ```docker exec -it <container_id> bash```
 
-6. Move to experiments folder: ```cd electric-multivariate/experiments/```
+6. Execute ```./get_data.sh``` to obtain the data
 
-7. Give execution permissions to run.sh: ```chmod +x run.sh```
+7. Move to experiments folder: ```cd experiments/```
 
-8. Execute: ```nohup ./run.sh```
+8. Give execution permissions to run.sh: ```chmod +x run.sh```
+
+9. Execute: ```./run.sh``` to launch an experiment
+
+10. The log of the experiment can be watched with the command ```tail -f experiment{GPU}.out``` where {GPU} is set in the file run.sh
+
+**In addition, below is a video tutorial with an example of execution, which can be consulted in case you have any doubts.**
+
+[![Alt text](https://img.youtube.com/vi/s4FNWdRoNhQ/0.jpg)](https://www.youtube.com/watch?v=s4FNWdRoNhQ)
+
+
 
 
 ## License<a name="license"></a>
