@@ -12,6 +12,7 @@ from preprocessing import denormalize
 from obtain_best_results import obtain_best_results
 from obtain_metrics_predictions import get_metrics
 from main_ml import main_ml
+from tensorflow.keras.callbacks import EarlyStopping
 
 def notify_slack(msg, webhook=None):
     if webhook is None:
@@ -176,6 +177,9 @@ def _run_experiment(
     )
     print(model.summary())
 
+    # Callbacks
+    early_stopping = EarlyStopping(monitor='val_loss', patience=5, verbose=1, mode='min')
+
     training_time_0 = time.time()
     history = model.fit(
         x_train,
@@ -185,6 +189,7 @@ def _run_experiment(
         steps_per_epoch=steps_per_epoch,
         validation_data=(x_test, y_test),
         shuffle=True,
+        callbacks=[early_stopping]
     )
     training_time = time.time() - training_time_0
 

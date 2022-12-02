@@ -302,7 +302,7 @@ def create_rnn(func):
     )
 
 
-def create_cnn(input_shape, output_size, optimizer, loss, conv_blocks):
+def create_cnn(input_shape, output_size, optimizer, loss, conv_blocks, dense_layers, dense_dropout):
     conv_layers = [b[0] for b in conv_blocks]
     kernel_sizes = [b[1] for b in conv_blocks]
     pool_sizes = [b[2] for b in conv_blocks]
@@ -314,6 +314,8 @@ def create_cnn(input_shape, output_size, optimizer, loss, conv_blocks):
         conv_layers=conv_layers,
         kernel_sizes=kernel_sizes,
         pool_sizes=pool_sizes,
+        dense_layers=dense_layers,
+        dense_dropout=dense_dropout
     )
 
 
