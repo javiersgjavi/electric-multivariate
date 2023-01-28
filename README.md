@@ -29,25 +29,23 @@
 
 ## How to execute the code
 
-1. Modify required parameters in docker-compose.yaml
+1. Build Docker image: ```docker build . -t electric```
 
-2. Build Docker image: ```docker build . -t electric```
+2. Start Docker container: ```docker-compose up -d```
 
-3. Start Docker container: ```docker-compose up -d```
+3. Check container id: ```docker ps```
 
-4. Check container id: ```docker ps```
+4. Enter Docker container: ```docker exec -it <container_id> bash```
 
-5. Enter Docker container: ```docker exec -it <container_id> bash```
+5. Execute ```./get_data.sh``` to obtain the data
 
-6. Execute ```./get_data.sh``` to obtain the data
+6. Move to experiments folder: ```cd experiments/```
 
-7. Move to experiments folder: ```cd experiments/```
+7. Give execution permissions to run.sh: ```chmod +x run.sh```
 
-8. Give execution permissions to run.sh: ```chmod +x run.sh```
+8. Execute: ```./run.sh``` to launch an experiment
 
-9. Execute: ```./run.sh``` to launch an experiment
-
-10. The log of the experiment can be watched with the command ```tail -f experiment{GPU}.out``` where {GPU} is set in the file run.sh
+9. The log of the experiment can be watched with the command ```tail -f experiment{GPU}.out``` where {GPU} is set in the file run.sh
 
 **In addition, below is a video tutorial with an example of execution, which can be consulted in case you have any doubts.**
 
