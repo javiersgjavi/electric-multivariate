@@ -4,7 +4,7 @@ LOG_FILE=./experiments${GPU}.out
 DATASETS=('../data/_*')
 MODELS=('lstm' 'cnn' 'tcn' 'mlp' 'gru')
 MODELS_ML=('tree' 'rf')
-PARAMETERS=./parameters.json
+PARAMETERS=./parameters_deeper.json
 OUTPUT=../results
 CSV_FILENAME=results.csv
 

@@ -2,10 +2,10 @@ version: "3.7"
 
 services:
 
- electric_{name_service}:
+ electric_multivariate:
   image: electric
   volumes:
-   - ~/{path_to_folder}/:/app/
+   - ./:/app/
   stdin_open: true
   tty: true
   deploy:

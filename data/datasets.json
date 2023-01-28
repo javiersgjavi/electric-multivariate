@@ -1,14 +1,34 @@
 {
-    "quarantine": {
-        "train": "https://www.dropbox.com/s/t857z4a1ofuucde/train.csv?dl=1",
-        "test": "https://www.dropbox.com/s/xjj1955hyuad9so/test.csv?dl=1"
+    "quarantine_exp1": {
+        "train": "https://www.dropbox.com/s/f3ofvlkb0yysub1/train.csv?dl=0",
+        "test": "https://www.dropbox.com/s/j4dwqubp9geapu2/test.csv?dl=0"
     },
-    "fraud": {
-        "train": "https://www.dropbox.com/s/np4hg8v7bykacco/train.csv?dl=1",
-        "test": "https://www.dropbox.com/s/ekj675082j8od7j/test.csv?dl=1"
+    "fraud_exp1": {
+        "train": "https://www.dropbox.com/s/h7gw85jpdpj580l/train.csv?dl=0",
+        "test": "https://www.dropbox.com/s/cr1n7gwe4i45jcq/test.csv?dl=0"
     },
-    "normal": {
-        "train": "https://www.dropbox.com/s/ndae94ophgvsn1r/train.csv?dl=1",
-        "test": "https://www.dropbox.com/s/u74lia1zaa6oice/test.csv?dl=1"
+    "normal_exp1": {
+        "train": "https://www.dropbox.com/s/7tiqyxqwghrbdmz/train.csv?dl=0",
+        "test": "https://www.dropbox.com/s/rj09hj61bwquu11/test.csv?dl=0"
+    },
+    "high_prices_exp1": {
+        "train": "https://www.dropbox.com/s/zle187roxni3bmg/train.csv?dl=0",
+        "test": "https://www.dropbox.com/s/z0fqe8q4qhdxc9r/test.csv?dl=0"
+    },
+    "quarantine_exp2": {
+        "train": "https://www.dropbox.com/s/e182v1o1y6mem1d/train.csv?dl=0",
+        "test": "https://www.dropbox.com/s/u0uy1dlgkwsgjpg/test.csv?dl=0"
+    },
+    "fraud_exp2": {
+        "train": "https://www.dropbox.com/s/7un9kxxj2bgb40b/train.csv?dl=0",
+        "test": "https://www.dropbox.com/s/a0xhbl3242jhjgs/test.csv?dl=0"
+    },
+    "normal_exp2": {
+        "train": "https://www.dropbox.com/s/ah1rteb88z3vpdi/train.csv?dl=0",
+        "test": "https://www.dropbox.com/s/8hgje2dof78qt8q/test.csv?dl=0"
+    },
+    "high_prices_exp2": {
+        "train": "https://www.dropbox.com/s/l9rfajcuvbloy3q/train.csv?dl=0",
+        "test": "https://www.dropbox.com/s/vyn0i0m5qsi2cf1/test.csv?dl=0"
     }
 }
